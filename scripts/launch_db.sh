@@ -1,0 +1,1 @@
+docker run --rm -v /var/lib/postgresql/data -e POSTGRES_USER=zaisen_user -e POSTGRES_PASSWORD=zaisen_password -p 5432:5432 --name zaisen_postgresql -d postgres:9.6-alpine
