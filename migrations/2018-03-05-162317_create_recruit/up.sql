@@ -6,11 +6,11 @@ CREATE TABLE recruits (
 );
 CREATE TABLE recruit_tasks (
     id SERIAL PRIMARY KEY,
-    recruit_id INT REFERENCES recruits (id),
-    task_id INT REFERENCES tasks (id)
+    recruit_id INT NOT NULL REFERENCES recruits (id),
+    task_id INT NOT NULL REFERENCES tasks (id)
 );
 CREATE TABLE entries (
     id SERIAL PRIMARY KEY,
-    recruit_task_id INT REFERENCES recruit_tasks (id),
-    user_id INT REFERENCES users (id)
+    recruit_task_id INT NOT NULL REFERENCES recruit_tasks (id),
+    user_id INT NOT NULL REFERENCES users (id)
 )

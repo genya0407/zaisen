@@ -9,11 +9,13 @@ pub struct CreateEntry<R: RecruitRepository> {
 
 impl<R> CreateEntry<R> where R: RecruitRepository {
     pub fn run(&self, recruit_id: i32, task_id: i32, user_id: i32) {
-        let mut recruit = self.recruit_repository.find(RecruitId(recruit_id));
+        let mut recruit = self.recruit_repository.find(RecruitId(recruit_id)).unwrap();
         recruit.add_entry(TaskId(task_id), UserId(user_id));
         self.recruit_repository.store(recruit);
     }
 }
+
+
 
 pub struct RecruitDTO {
     pub id: i32,

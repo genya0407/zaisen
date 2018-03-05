@@ -4,8 +4,7 @@ use std::collections::HashMap;
 
 pub trait RecruitRepository {
     fn store(&self, recruit: Recruit);
-    fn find(&self, recruit_id: RecruitId) -> Recruit;
-    fn find_all(&self) -> Vec<Recruit>;
+    fn find(&self, recruit_id: RecruitId) -> Option<Recruit>;
     fn closest_recruit(&self) -> Option<Recruit>;
 }
 
@@ -29,21 +28,17 @@ impl MockRecruitRepository {
 }
 
 impl RecruitRepository for MockRecruitRepository {
+    fn find(&self, recruit_id: RecruitId) -> Option<Recruit> {
+        let mut recruit = self.sample_recruit();
+        recruit.id = recruit_id;
+        return Some(recruit)
+    }
+
     fn store(&self, _recruit: Recruit) {
         // do nothing.
     }
 
-    fn find(&self, recruit_id: RecruitId) -> Recruit {
-        let mut recruit = self.sample_recruit();
-        recruit.id = recruit_id;
-        return recruit
-    }
-
     fn closest_recruit(&self) -> Option<Recruit> {
         return Some(self.sample_recruit())
-    }
-
-    fn find_all(&self) -> Vec<Recruit> {
-        return vec![]
     }
 }
