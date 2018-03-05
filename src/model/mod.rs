@@ -32,7 +32,7 @@ pub struct Task {
     pub assignee: Option<UserId>,
     pub contribution: TaskContribution,
     pub title: String,
-    pub body: String,
+    pub description: String,
     pub start_at: DateTime<Local>,
     pub end_at: DateTime<Local>,
 }
