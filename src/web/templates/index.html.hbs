@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <p>{{id}}</p>
+        <p>{{start_at}}~{{end_at}}</p>
+        <ul>
+            {{#each entries}}
+            <li>
+                {{@key}}:
+                <ul>
+                    {{#each this}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </li>
+            {{/each}}
+        </ul>
+    </body>
+</html>

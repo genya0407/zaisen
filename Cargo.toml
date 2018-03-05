@@ -3,5 +3,18 @@ name = "zaisen"
 version = "0.1.0"
 authors = ["Yusuke Sangenya <longinus.eva@gmail.com>"]
 
+[[bin]]
+name = "web"
+path = "src/web/main.rs"
+
 [dependencies]
-chrono = "0.4.0"
+chrono = { version = "0.4.0", features = ["serde"] }
+rocket = "0.3.6"
+rocket_codegen = "0.3.6"
+serde = "1.0.27"
+serde_derive = "1.0.27"
+
+[dependencies.rocket_contrib]
+version = "0.3.6"
+default-features = false
+features = ["handlebars_templates", "tera_templates"]

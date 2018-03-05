@@ -1,0 +1,5 @@
+[development]
+address = "localhost"
+port = 8000
+log = "normal"
+template_dir = "src/web/templates"
