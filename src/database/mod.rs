@@ -21,15 +21,6 @@ pub fn establish_connection() -> PgConnection {
     return connection
 }
 
-/*
-pub trait RecruitRepository {
-    fn store(&self, recruit: Recruit);
-    fn find(&self, recruit_id: RecruitId) -> Recruit;
-    fn find_all(&self) -> Vec<Recruit>;
-    fn closest_recruit(&self) -> Option<Recruit>;
-}
-*/
-
 pub struct PsqlRecruitRepository<'a> {
     connection: &'a PgConnection
 }
@@ -74,10 +65,35 @@ impl<'a> PsqlRecruitRepository<'a> {
 
         return model::Entries(entry_content)
     }
+
+    fn insert(&self, recruit: model::Recruit) {
+        let recruit_record = records::NewRecruit {
+            start_at: recruit.start_at.naive_utc(),
+            end_at: recruit.end_at.naive_utc(),
+        };
+
+        let mut entry_records = vec![];
+        for (task_id, user_ids) in recruit.entries {
+            for user_id in user_ids {
+                let entry_record = records::NewEntry {
+                    task_id: task_id.0,
+                    user_id: user_id.0
+                };
+                entry_records.push(entry_record);
+            }
+        }
+    }
 }
 
-//impl<'a> RecruitRepository for PsqlRecruitRepository<'a> {
-impl<'a> PsqlRecruitRepository<'a> {
+impl<'a> RecruitRepository for PsqlRecruitRepository<'a> {
+    fn store(&self, recruit: model::Recruit) {
+        if recruit.id.0 == 0 {
+            self.insert(recruit);
+        } else {
+            self.update(recruit)
+        }
+    }
+
     fn find(&self, recruit_id: model::RecruitId) -> Option<model::Recruit> {
         let recruit_opt = self.fetch_recruit_record(recruit_id.0);
         recruit_opt.map(|recruit| {

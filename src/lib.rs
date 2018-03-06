@@ -6,4 +6,4 @@ extern crate dotenv;
 pub mod model;
 pub mod repository;
 pub mod usecase;
-pub mod database;
+// pub mod database;

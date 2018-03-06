@@ -29,10 +29,10 @@ pub struct TaskContribution(pub i32);
 #[derive(Clone, Debug)]
 pub struct Task {
     pub id: TaskId,
-    pub assignee: Option<UserId>,
-    pub contribution: TaskContribution,
     pub title: String,
     pub description: String,
+    pub assignees: Vec<UserId>,
+    pub contribution: TaskContribution,
     pub start_at: DateTime<Local>,
     pub end_at: DateTime<Local>,
 }
@@ -46,6 +46,8 @@ pub struct Entries(pub HashMap<TaskId, Vec<UserId>>);
 #[derive(Clone, Debug)]
 pub struct Recruit {
     pub id: RecruitId,
+    pub title: String,
+    pub description: String,
     pub entries: Entries,
     pub start_at: DateTime<Local>,
     pub end_at: DateTime<Local>

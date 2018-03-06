@@ -11,6 +11,6 @@ CREATE TABLE recruit_tasks (
 );
 CREATE TABLE entries (
     id SERIAL PRIMARY KEY,
-    recruit_task_id INT NOT NULL REFERENCES recruit_tasks (id),
+    task_id INT NOT NULL REFERENCES tasks (id),
     user_id INT NOT NULL REFERENCES users (id)
 )
