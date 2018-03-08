@@ -1,4 +1,5 @@
 -- This file should undo anything in `up.sql`
 DROP TABLE entries;
-DROP TABLE recruit_tasks;
+DROP TABLE assignments;
+DROP TABLE tasks;
 DROP TABLE recruits;

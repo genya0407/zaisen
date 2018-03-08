@@ -14,23 +14,6 @@ use chrono::prelude::*;
 use zaisen::*;
 use zaisen::repository::*;
 
-/*
-use rocket::request::FromFormValue;
-use rocket::http::RawStr;
-
-struct FormDateTime(pub DateTime<Local>);
-
-impl<'v> FromFormValue<'v> for FormDateTime {
-    type Error = &'v RawStr;
-
-    fn from_form_value(form_value: &'v RawStr) -> Result<FormDateTime, &'v RawStr> {
-        NaiveDateTime::parse_from_str(form_value, "%Y-%m-%dT%H:%M:%S")
-            .map(|naive_datetime| FormDateTime(Local.from_local_datetime(&naive_datetime).unwrap()))
-            .map_err(|_| form_value)
-    }
-}
-*/
-
 #[derive(Deserialize, Clone)]
 struct TaskParams {
     pub contribution: i32,
@@ -77,7 +60,7 @@ fn create_recruit(rt_params: Json<RecruitTaskParams>) -> &'static str {
     };
     uc.run(dto);
 
-    "hoge"
+    ""
 }
 
 fn main() {

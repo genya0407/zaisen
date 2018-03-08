@@ -36,17 +36,17 @@ impl<'a> PsqlRecruitRepository<'a> {
     }
 
     fn fetch_entries(&self, recruit_id: i32) -> model::Entries {
-        use self::schema::{recruit_tasks, entries};
+        use self::schema::{tasks, entries};
 
-        let task_users = recruit_tasks::table
+        let task_user_ids = tasks::table
                             .left_join(entries::table)
-                            .select((recruit_tasks::task_id, entries::user_id.nullable()))
-                            .filter(recruit_tasks::task_id.eq(recruit_id))
+                            .select((tasks::id, entries::user_id.nullable()))
+                            .filter(tasks::recruit_id.eq(recruit_id))
                             .load::<(i32, Option<i32>)>(self.connection)
                             .unwrap();
 
         let mut entry_content: HashMap<model::TaskId, Vec<model::UserId>> = HashMap::new();
-        for (task_id, user_id_opt) in task_users {
+        for (task_id, user_id_opt) in task_user_ids {
             entry_content
                 .entry(model::TaskId(task_id))
                 .and_modify(|user_ids| {

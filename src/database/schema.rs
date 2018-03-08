@@ -1,16 +1,16 @@
 table! {
-    entries (id) {
+    assignees (id) {
         id -> Int4,
-        recruit_task_id -> Int4,
+        task_id -> Int4,
         user_id -> Int4,
     }
 }
 
 table! {
-    recruit_tasks (id) {
+    entries (id) {
         id -> Int4,
-        recruit_id -> Int4,
         task_id -> Int4,
+        user_id -> Int4,
     }
 }
 
@@ -32,7 +32,7 @@ table! {
 table! {
     tasks (id) {
         id -> Int4,
-        assignee -> Nullable<Int4>,
+        recruit_id -> Int4,
         contribution -> Int4,
         title -> Text,
         description -> Text,
@@ -51,16 +51,16 @@ table! {
     }
 }
 
-joinable!(entries -> recruit_tasks (recruit_task_id));
+joinable!(assignees -> tasks (task_id));
+joinable!(assignees -> users (user_id));
+joinable!(entries -> tasks (task_id));
 joinable!(entries -> users (user_id));
-joinable!(recruit_tasks -> recruits (recruit_id));
-joinable!(recruit_tasks -> tasks (task_id));
-joinable!(tasks -> users (assignee));
+joinable!(tasks -> recruits (recruit_id));
 joinable!(users -> rooms (room_id));
 
 allow_tables_to_appear_in_same_query!(
+    assignees,
     entries,
-    recruit_tasks,
     recruits,
     rooms,
     tasks,
